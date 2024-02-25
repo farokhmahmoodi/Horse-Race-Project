@@ -35,5 +35,9 @@ void Horse::sendToGate()
 
 void Horse::displayHorse(int goalLength)
 {
-
+	cout << "|";
+	for (int i = 0; i < distanceTraveled; i++)
+		cout << "-";
+	//cout << setw(distanceTraveled) << ">";
+	cout << setw(goalLength) << "|" << endl;
 }

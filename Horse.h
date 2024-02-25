@@ -1,5 +1,7 @@
 #ifndef HORSE_H
 #define HORSE_H
+#include <iostream>
+#include <iomanip>
 #include <string>
 #include <cstdlib>
 #include <ctime>

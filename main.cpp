@@ -97,12 +97,14 @@ You must check for any invalid entries. For example, when asking for the number 
 negative answer and re-prompt until an appropriate result is given. Only accept race distances of 100 or greater, 
 again re-prompting if necessary.*/
 
-#include <iostream>
 #include "Horse.h";
 
 int main()
 {
-    
+    Horse a;
+    a.displayHorse(100);
+    a.runASecond();
+    a.displayHorse(100);
 
     return 0;
 }
