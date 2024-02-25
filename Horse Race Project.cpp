@@ -98,6 +98,7 @@ negative answer and re-prompt until an appropriate result is given. Only accept 
 again re-prompting if necessary.*/
 
 #include <iostream>
+#include "Horse.h"
 using namespace std;
 
 int main()
