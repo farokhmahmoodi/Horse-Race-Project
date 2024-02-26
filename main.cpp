@@ -101,23 +101,35 @@ again re-prompting if necessary.*/
 
 int main()
 {
-    int numOfHorses;
+    int numOfHorses, raceDistance;
+    string horseName, riderName;
 
     do
     {
-        cout << "How many horses are in the race: ";
+        cout << "How many horses are in the race(greater than or equal to 0): ";
         cin >> numOfHorses;
         if (numOfHorses < 0)
             cout << "Invalid input for number of horses." << endl;
     } while (numOfHorses < 0);
-    Horse* arr = new Horse[numOfHorses];
     if (numOfHorses > 0)
     {
+        Horse* arr = new Horse[numOfHorses];
         for (int i = 0; i < numOfHorses; i++)
         {
             cout << "Please give me the name of horse " << i + 1 << ": ";
-            
+            getline(cin,horseName);
+            arr[i].setName(horseName);
+            cout << "Please give me the rider of rider " << i + 1 << ": ";
+            getline(cin, riderName);
+            arr[i].setRider(riderName);
         }
+        do
+        {
+            cout << "Please enter the distance of the race(greater than or equal to 100): ";
+            cin >> raceDistance;
+            if (raceDistance < 100)
+                cout << "Invalid input for race distance." << endl;
+        } while (raceDistance < 100);
     }
 
     return 0;
