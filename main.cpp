@@ -97,7 +97,7 @@ You must check for any invalid entries. For example, when asking for the number 
 negative answer and re-prompt until an appropriate result is given. Only accept race distances of 100 or greater,
 again re-prompting if necessary.*/
 
-#include "Horse.h";
+#include "Horse.h"
 
 int main()
 {
@@ -108,8 +108,12 @@ int main()
 
     do
     {
-        cout << "How many horses are in the race(greater than or equal to 0): ";
-        cin >> numOfHorses;
+        while (cout << "How many horses are in the race(greater than or equal to 0): " 
+            && !(cin >> numOfHorses)) {
+            cin.clear(); //clear bad input flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+            cout << "Invalid input for number of horses." << endl;
+        }
         if (numOfHorses < 0)
             cout << "Invalid input for number of horses." << endl;
         cin.ignore();
@@ -128,12 +132,16 @@ int main()
         }
         do
         {
-            cout << "Please enter the distance of the race(greater than or equal to 100): ";
-            cin >> raceDistance;
+            while (cout << "Please enter the distance of the race(greater than or equal to 100): " 
+                && !(cin >> raceDistance)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                cout << "Invalid input for distance of race." << endl;
+            }          
             if (raceDistance < 100)
-                cout << "Invalid input for race distance." << endl;
+                cout << "Invalid input for distance of race." << endl;
         } while (raceDistance < 100);
-        cout << "The start!" << endl;
+        cout << endl << "The start!" << endl;
         for (int i = 0; i < numOfHorses; i++)
         {
             arr[i].displayHorse(raceDistance);
@@ -153,7 +161,8 @@ int main()
             } while (toupper(choice) != 'Y');
             for (int i = 0; i < numOfHorses; i++)
             {
-                arr[i].runASecond();
+                if(arr[i].getDistanceTraveled() < raceDistance)
+                    arr[i].runASecond();
             }
             for (int i = 0; i < numOfHorses; i++)
             {
