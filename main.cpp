@@ -101,7 +101,7 @@ again re-prompting if necessary.*/
 
 int main()
 {
-    int numOfHorses, raceDistance;
+    int numOfHorses, raceDistance, numOfWinners = 0;
     string horseName, riderName;
     char choice;
     bool winner = false;
@@ -112,6 +112,7 @@ int main()
         cin >> numOfHorses;
         if (numOfHorses < 0)
             cout << "Invalid input for number of horses." << endl;
+        cin.ignore();
     } while (numOfHorses < 0);
     if (numOfHorses > 0)
     {
@@ -147,7 +148,8 @@ int main()
                     cin >> choice;
                     if (toupper(choice) != 'Y' && toupper(choice) != 'N')
                         cout << "Invalid input for choice." << endl;
-                } while (toupper(choice) != 'Y' && toupper(choice) != 'N');             
+                } while (toupper(choice) != 'Y' && toupper(choice) != 'N');
+                cin.ignore();
             } while (toupper(choice) != 'Y');
             for (int i = 0; i < numOfHorses; i++)
             {
@@ -160,7 +162,10 @@ int main()
             cout << endl;
             for (int i = 0; i < numOfHorses; i++)
             {
-
+                if (arr[i].getDistanceTraveled() >= raceDistance)
+                {
+                    arr[i].increaseRacesWon();
+                }
             }
         } while (!winner);
     }
