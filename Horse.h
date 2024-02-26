@@ -14,6 +14,7 @@ private:
 	string name, rider;
 	int maxRunningDistPerSecond, distanceTraveled,
 		racesWon;
+	unsigned seed;
 
 public:
 	Horse();
