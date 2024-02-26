@@ -36,12 +36,20 @@ void Horse::sendToGate()
 void Horse::displayHorse(int goalLength)
 {
 	cout << "|";
-	for (int i = 0; i <= distanceTraveled; i++)
+	if (distanceTraveled < goalLength)
 	{
-		if (i == distanceTraveled)
-			cout << ">";
-		else
-			cout << "-";
+		cout << setw(distanceTraveled) << ">";
+		if (distanceTraveled == 0)
+		{
+			cout << setw(goalLength - distanceTraveled) << "|" << endl;
+		}
+		else if (distanceTraveled > 0)
+		{
+			cout << setw((goalLength - distanceTraveled) + 1) << "|" << endl;
+		}
 	}
-	cout << setw(goalLength - distanceTraveled) << "|" << endl;
+	else if (distanceTraveled >= goalLength)
+	{
+		cout << setw(goalLength + 1) << "|" << setw(1) << ">" << endl;
+	}
 }
