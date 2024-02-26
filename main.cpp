@@ -130,108 +130,119 @@ int main()
             getline(cin, riderName);
             arr[i].setRider(riderName);
         }
-        do
-        {
-            while (cout << "Please enter the distance of the race(greater than or equal to 100): " 
-                && !(cin >> raceDistance)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                cout << "Invalid input for distance of race." << endl;
-            }          
-            if (raceDistance < 100)
-                cout << "Invalid input for distance of race." << endl;
-        } while (raceDistance < 100);
-        cout << endl << "The start!" << endl;
-        for (int i = 0; i < numOfHorses; i++)
-        {
-            arr[i].sendToGate();
-            arr[i].displayHorse(raceDistance);
-        }
-        cout << endl;
-        do
-        {           
-            do {
-                do
-                {
-                    cout << "Are you ready for the next second(y/n)?:";
-                    cin >> choice;
-                    if (toupper(choice) != 'Y' && toupper(choice) != 'N')
-                        cout << "Invalid input for choice." << endl;
-                } while (toupper(choice) != 'Y' && toupper(choice) != 'N');
-                cin.ignore();
-            } while (toupper(choice) != 'Y');
+        do {
+            do
+            {
+                while (cout << "Please enter the distance of the race(greater than or equal to 100): "
+                    && !(cin >> raceDistance)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input for distance of race." << endl;
+                }
+                if (raceDistance < 100)
+                    cout << "Invalid input for distance of race." << endl;
+            } while (raceDistance < 100);
+            cout << endl << "The start!" << endl;
             for (int i = 0; i < numOfHorses; i++)
             {
-                if(arr[i].getDistanceTraveled() < raceDistance)
-                    arr[i].runASecond();
-            }
-            for (int i = 0; i < numOfHorses; i++)
-            {
+                arr[i].sendToGate();
                 arr[i].displayHorse(raceDistance);
             }
             cout << endl;
-            for (int i = 0; i < numOfHorses; i++) //determining if there is a winner
+            do
             {
-                if (arr[i].getDistanceTraveled() >= raceDistance)
-                {
-                    arr[i].setWonToTrue();
-                    numOfWinners++;
-                }
-            }
-            if (numOfWinners > 1) //tiebreaker
-            {
-                int highest = arr[0].getDistanceTraveled();
-                for (int i = 1; i < numOfHorses; i++)
-                {
-                    if (arr[i].getWon())
+                do {
+                    do
                     {
-                        if(arr[i].getDistanceTraveled() > highest)
-                        {
-                            highest = arr[i].getDistanceTraveled();
-                        }
-                        arr[i].setWontoFalse();
-                    }
-                }
-                for (int i = 0; i < numOfHorses; i++) //if tiebreaker is determined by highest distance traveled
-                {
-                    if (arr[i].getDistanceTraveled() == highest)
-                    {
-                        arr[i].increaseRacesWon();
-                        break;
-                    }
-                }
-                numOfRaces++;
+                        cout << "Are you ready for the next second(y/n)?:";
+                        cin >> choice;
+                        if (toupper(choice) != 'Y' && toupper(choice) != 'N')
+                            cout << "Invalid input for choice." << endl;
+                    } while (toupper(choice) != 'Y' && toupper(choice) != 'N');
+                    cin.ignore();
+                } while (toupper(choice) != 'Y');
                 for (int i = 0; i < numOfHorses; i++)
                 {
-                    cout << arr[i].getName() << " has won " <<
-                        arr[i].getRacesWon() << "/" << numOfRaces
-                        << " races.";
+                    if (arr[i].getDistanceTraveled() < raceDistance)
+                        arr[i].runASecond();
                 }
-                winner = true;
-                numOfWinners = 0;
-            }
-            else if(numOfWinners == 1) //if no tiebreaker just one winner
-            {
                 for (int i = 0; i < numOfHorses; i++)
                 {
-                    if (arr[i].getWon())
-                    {
-                        arr[i].increaseRacesWon();
-                        arr[i].setWontoFalse();
-                    }
-                }
-                numOfRaces++;
-                for (int i = 0; i < numOfHorses; i++)
-                {
-                    cout << arr[i].getName() << " has won " <<
-                        arr[i].getRacesWon() << "/" << numOfRaces
-                        << " races.";
+                    arr[i].displayHorse(raceDistance);
                 }
                 cout << endl;
-                winner = true;
-                numOfWinners = 0;
-            }
-        } while (!winner);
+                for (int i = 0; i < numOfHorses; i++) //determining if there is a winner
+                {
+                    if (arr[i].getDistanceTraveled() >= raceDistance)
+                    {
+                        arr[i].setWonToTrue();
+                        numOfWinners++;
+                    }
+                }
+                if (numOfWinners > 1) //tiebreaker
+                {
+                    int highest = arr[0].getDistanceTraveled();
+                    for (int i = 1; i < numOfHorses; i++)
+                    {
+                        if (arr[i].getWon())
+                        {
+                            if (arr[i].getDistanceTraveled() > highest)
+                            {
+                                highest = arr[i].getDistanceTraveled();
+                            }
+                            arr[i].setWontoFalse();
+                        }
+                    }
+                    for (int i = 0; i < numOfHorses; i++) //if tiebreaker is determined by highest distance traveled
+                    {
+                        if (arr[i].getDistanceTraveled() == highest)
+                        {
+                            arr[i].increaseRacesWon();
+                            break;
+                        }
+                    }
+                    numOfRaces++;
+                    for (int i = 0; i < numOfHorses; i++)
+                    {
+                        cout << arr[i].getName() << " has won " <<
+                            arr[i].getRacesWon() << "/" << numOfRaces
+                            << " races." << endl;
+                    }
+                    winner = true;
+                    numOfWinners = 0;
+                }
+                else if (numOfWinners == 1) //if no tiebreaker just one winner
+                {
+                    for (int i = 0; i < numOfHorses; i++)
+                    {
+                        if (arr[i].getWon())
+                        {
+                            arr[i].increaseRacesWon();
+                            arr[i].setWontoFalse();
+                        }
+                    }
+                    numOfRaces++;
+                    for (int i = 0; i < numOfHorses; i++)
+                    {
+                        cout << arr[i].getName() << " has won " <<
+                            arr[i].getRacesWon() << "/" << numOfRaces
+                            << " races." << endl;
+                    }
+                    cout << endl;
+                    winner = true;
+                    numOfWinners = 0;
+                }
+            } while (!winner);
+            winner = false;
+            do
+            { 
+                cout << "Do you wish to continue(y/n)?:";
+                cin >> runAgain;
+                if (tolower(runAgain) != 'y' && tolower(runAgain) != 'n')
+                    cout << "Invalid input." << endl;
+            } while (tolower(runAgain) != 'y' && tolower(runAgain) != 'n');
+            cin.ignore();
+        } while (tolower(runAgain) != 'n');
     }
 
     return 0;
