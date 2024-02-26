@@ -101,9 +101,9 @@ again re-prompting if necessary.*/
 
 int main()
 {
-    int numOfHorses, raceDistance, numOfWinners = 0;
+    int numOfHorses, raceDistance, numOfRaces, numOfWinners;
     string horseName, riderName;
-    char choice;
+    char choice, runAgain;
     bool winner = false;
 
     do
@@ -144,6 +144,7 @@ int main()
         cout << endl << "The start!" << endl;
         for (int i = 0; i < numOfHorses; i++)
         {
+            arr[i].sendToGate();
             arr[i].displayHorse(raceDistance);
         }
         cout << endl;
@@ -173,8 +174,18 @@ int main()
             {
                 if (arr[i].getDistanceTraveled() >= raceDistance)
                 {
-                    arr[i].increaseRacesWon();
+                    arr[i].setWonToTrue();
+                    numOfWinners++;
                 }
+            }
+            if (numOfWinners > 1) //tiebreaker
+            {
+
+            }
+            else //one winner
+            {
+
+
             }
         } while (!winner);
     }
