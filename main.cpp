@@ -170,7 +170,7 @@ int main()
                 arr[i].displayHorse(raceDistance);
             }
             cout << endl;
-            for (int i = 0; i < numOfHorses; i++)
+            for (int i = 0; i < numOfHorses; i++) //determining if there is a winner
             {
                 if (arr[i].getDistanceTraveled() >= raceDistance)
                 {
@@ -180,21 +180,38 @@ int main()
             }
             if (numOfWinners > 1) //tiebreaker
             {
-                numOfRaces++;
-                for (int i = 0; i < numOfHorses; i++)
+                int highest = arr[0].getDistanceTraveled();
+                for (int i = 1; i < numOfHorses; i++)
                 {
                     if (arr[i].getWon())
                     {
-
+                        if(arr[i].getDistanceTraveled() > highest)
+                        {
+                            highest = arr[i].getDistanceTraveled();
+                        }
+                        arr[i].setWontoFalse();
                     }
                 }
-
+                for (int i = 0; i < numOfHorses; i++) //if tiebreaker is determined by highest distance traveled
+                {
+                    if (arr[i].getDistanceTraveled() == highest)
+                    {
+                        arr[i].increaseRacesWon();
+                        break;
+                    }
+                }
+                numOfRaces++;
+                for (int i = 0; i < numOfHorses; i++)
+                {
+                    cout << arr[i].getName() << " has won " <<
+                        arr[i].getRacesWon() << "/" << numOfRaces
+                        << " races.";
+                }
                 winner = true;
                 numOfWinners = 0;
             }
-            else if(numOfWinners == 1) //one winner
+            else if(numOfWinners == 1) //if no tiebreaker just one winner
             {
-                numOfRaces++;
                 for (int i = 0; i < numOfHorses; i++)
                 {
                     if (arr[i].getWon())
@@ -203,6 +220,7 @@ int main()
                         arr[i].setWontoFalse();
                     }
                 }
+                numOfRaces++;
                 for (int i = 0; i < numOfHorses; i++)
                 {
                     cout << arr[i].getName() << " has won " <<
