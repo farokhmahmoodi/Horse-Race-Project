@@ -103,6 +103,8 @@ int main()
 {
     int numOfHorses, raceDistance;
     string horseName, riderName;
+    char choice;
+    bool winner = false;
 
     do
     {
@@ -130,6 +132,37 @@ int main()
             if (raceDistance < 100)
                 cout << "Invalid input for race distance." << endl;
         } while (raceDistance < 100);
+        cout << "The start!" << endl;
+        for (int i = 0; i < numOfHorses; i++)
+        {
+            arr[i].displayHorse(raceDistance);
+        }
+        cout << endl;
+        do
+        {           
+            do {
+                do
+                {
+                    cout << "Are you ready for the next second(y/n)?:";
+                    cin >> choice;
+                    if (toupper(choice) != 'Y' && toupper(choice) != 'N')
+                        cout << "Invalid input for choice." << endl;
+                } while (toupper(choice) != 'Y' && toupper(choice) != 'N');             
+            } while (toupper(choice) != 'Y');
+            for (int i = 0; i < numOfHorses; i++)
+            {
+                arr[i].runASecond();
+            }
+            for (int i = 0; i < numOfHorses; i++)
+            {
+                arr[i].displayHorse(raceDistance);
+            }
+            cout << endl;
+            for (int i = 0; i < numOfHorses; i++)
+            {
+
+            }
+        } while (!winner);
     }
 
     return 0;
