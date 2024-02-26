@@ -41,18 +41,18 @@ void Horse::displayHorse(int goalLength)
 		cout << setw(distanceTraveled) << ">";
 		if (distanceTraveled == 0)
 		{
-			cout << setw(goalLength - distanceTraveled) << "|" << setw(10)
+			cout << setw(goalLength - distanceTraveled) << "|" << setw(15)
 				<< name << ", ridden by " << rider << endl;
 		}
 		else if (distanceTraveled > 0)
 		{
-			cout << setw((goalLength - distanceTraveled) + 1) << "|" << setw(10)
+			cout << setw((goalLength - distanceTraveled) + 1) << "|" << setw(15)
 				<< name << ", ridden by " << rider << endl;
 		}
 	}
 	else if (distanceTraveled >= goalLength)
 	{
-		cout << setw(goalLength + 1) << "|" << setw(1) << ">" << setw(9)
+		cout << setw(goalLength + 1) << "|" << setw(1) << ">" << setw(15)
 			<< name << ", ridden by " << rider << endl;
 	}
 }
