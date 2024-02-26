@@ -34,13 +34,17 @@ public:
 	{
 		return rider;
 	}
-	void setRacesWon(int r)
+	void increaseRacesWon()
 	{
-		racesWon = r;
+		racesWon++;
 	}
 	int getRacesWon()
 	{
 		return racesWon;
+	}
+	int getDistanceTraveled()
+	{
+		return distanceTraveled;
 	}
 	void runASecond();
 	void sendToGate();
