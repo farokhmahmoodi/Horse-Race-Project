@@ -18,6 +18,30 @@ private:
 public:
 	Horse();
 	Horse(string, string);
+	void setName(string n)
+	{
+		name = n;
+	}
+	string getName()
+	{
+		return name;
+	}
+	void setRider(string n)
+	{
+		rider = n;
+	}
+	string getRider()
+	{
+		return rider;
+	}
+	void setRacesWon(int r)
+	{
+		racesWon = r;
+	}
+	int getRacesWon()
+	{
+		return racesWon;
+	}
 	void runASecond();
 	void sendToGate();
 	void displayHorse(int);
