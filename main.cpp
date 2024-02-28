@@ -2,14 +2,14 @@
 The Horse class should have the following member variables:
 
 private name: A string holding the horses name.
-private rider: A string holding the riderís name.
+private rider: A string holding the rider‚Äôs name.
 private maxRunningDistPerSecond: An int that holds the maximum distance the horse could run in one second.
 private distanceTraveled: How far the horse has gone already.
 private racesWon: An int that determines how much races this horse and rider have won
 
 In addition, the class should have the following constructors and member functions:
 
-Constructor: This constructor should accept the horseís name and rider as arguments.
+Constructor: This constructor should accept the horse‚Äôs name and rider as arguments.
 It should initialize each horse to a random maxRunningDistPerSecond(1-100). DistanceTraveled should be set to 0.
 
 Accessors and mutators: Appropriate accessor and mutator functions should be used as required by the following methods:
@@ -21,7 +21,7 @@ sendToGate: Reset the horse to the start of a race by setting distanceTraveled t
 
 displayHorse(int goalLength): This method should attempt to draw where the horse is along its race.
 Should try to graphically display in ascii how far the horse has gone on its way to goalLength.
-This should be scaled so it doesnít overrun the screen.
+This should be scaled so it doesn‚Äôt overrun the screen.
 
 Some examples:
 
@@ -29,8 +29,8 @@ Some examples:
 |--------------------> | Secretariat, ridden by George
 |------------> | Calamity Jane, ridden by Mary
 
-So if a horse has ìdistanceTraveledî of 50 and the goalLength passed is 100, then the > for the horse
-should be halfway towards the ìgoalî. If it is called where the distanceTraveled is greater than the
+So if a horse has ‚ÄúdistanceTraveled‚Äù of 50 and the goalLength passed is 100, then the > for the horse
+should be halfway towards the ‚Äúgoal‚Äù. If it is called where the distanceTraveled is greater than the
 goalLength (indicating it has finished), this output would be:
 
 |--------------------------------|>John indicating the horse has finished the race.
@@ -42,7 +42,7 @@ Since horses can travel in any time interval a max of 100, a good distance of 10
 
 In a loop, start the race. In this loop, for each interval of the loop, execute runASecond for each horse.
 Then output all the horses toString to show the user the current race status. Then prompt the user if they want to
-continue the race. Keep doing this until one of the horses has ìwonî the race. If there is a tie, break the tie by
+continue the race. Keep doing this until one of the horses has ‚Äúwon‚Äù the race. If there is a tie, break the tie by
 distanceTraveled. If there is a tie in distanceTraveled, randomly pick a winner.
 
 Your program should allow multiple races with the same horses. At the end of each race, display the winner and
@@ -240,7 +240,6 @@ int main()
                             }
                             srand(seed);
                             int randomNum = rand() % tiebreaker.size();
-                            cout << randomNum << endl;
                             arr[tiebreaker.at(randomNum)].increaseRacesWon();
                             distanceTraveledTie = 0;
                         }
