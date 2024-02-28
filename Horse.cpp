@@ -19,7 +19,7 @@ Horse::Horse(string horseName, string riderName)
 {
 	name = horseName, rider = riderName;
 	distanceTraveled = 0, racesWon = 0;
-	while (cout << "Enter an integer for seed value to calculate max running distance per second" //for randomization
+	while (cout << "Enter an integer for seed value to calculate max running distance per second" 
 		<< " for a horse:" && !(cin >> seed)) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -32,7 +32,7 @@ Horse::Horse(string horseName, string riderName)
 
 void Horse::runASecond()
 {
-	while (cout << "Enter an integer for seed value to calculate distance traveled" //for randomization
+	while (cout << "Enter an integer for seed value to calculate distance traveled" 
 		<< " for horse " << name << ", ridden by " << rider << ":" && !(cin >> seed)) {
 		cin.clear();
 		cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
