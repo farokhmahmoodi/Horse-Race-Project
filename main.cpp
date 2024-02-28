@@ -106,7 +106,7 @@ int main()
     int numOfHorses = 0, raceDistance = 0, numOfRaces = 0,
         highestDistanceTraveled = 0, distanceTraveledTie = 0;
     string horseName, riderName;
-    char choice, anotherRace, runAgain;
+    char choice, anotherRace, runProgramAgain;
     vector<int> winners, tiebreaker;
     bool winner = false;
 
@@ -274,12 +274,12 @@ int main()
         do
         {
             cout << "Would you like to run the program again? (y for yes/n for no):";
-            cin >> runAgain;
-            if (tolower(runAgain) != 'y' && tolower(runAgain) != 'n')
+            cin >> runProgramAgain;
+            if (tolower(runProgramAgain) != 'y' && tolower(runProgramAgain) != 'n')
                 cout << "Invalid input." << endl;
             cin.ignore();
-        } while (tolower(runAgain) != 'y' && tolower(runAgain) != 'n');
-    } while (tolower(runAgain) != 'n');
+        } while (tolower(runProgramAgain) != 'y' && tolower(runProgramAgain) != 'n');
+    } while (tolower(runProgramAgain) != 'n');
 
     return 0;
 }
