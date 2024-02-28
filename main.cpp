@@ -232,7 +232,6 @@ int main()
                                     tiebreaker.push_back(winners.at(i));
                                 }
                             }
-                            cout << tiebreaker.size() << endl;
                             while (cout << "Enter seed value to determine winner by random:"
                                  && !(cin >> seed)) {
                                 cin.clear();
@@ -241,7 +240,6 @@ int main()
                             }
                             srand(seed);
                             int randomNum = rand() % tiebreaker.size();
-                            cout << "randomNum:" << randomNum << endl;
                             arr[tiebreaker.at(randomNum)].increaseRacesWon();
                             distanceTraveledTie = 0;
                         }
