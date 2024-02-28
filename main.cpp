@@ -104,7 +104,7 @@ int main()
 {
     unsigned seed;
     int numOfHorses = 0, raceDistance = 0, numOfRaces = 0,
-        highest = 0, distanceTraveledTie = 0;
+        highestDistanceTraveled = 0, distanceTraveledTie = 0;
     string horseName, riderName;
     char choice, anotherRace, runAgain;
     vector<int> winners, tiebreaker;
@@ -200,23 +200,23 @@ int main()
                     }
                     else if (winners.size() > 1) //more than one winner and tiebreaker needed
                     {
-                        highest = arr[winners.at(0)].getDistanceTraveled();
+                        highestDistanceTraveled = arr[winners.at(0)].getDistanceTraveled();
                         for (int i = 1; i < winners.size(); i++)
                         {
-                            if (arr[winners.at(i)].getDistanceTraveled() > highest)
+                            if (arr[winners.at(i)].getDistanceTraveled() > highestDistanceTraveled)
                             {
-                                highest = arr[winners.at(i)].getDistanceTraveled();
+                                highestDistanceTraveled = arr[winners.at(i)].getDistanceTraveled();
                             }
-                            else if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                            else if (arr[winners.at(i)].getDistanceTraveled() == highestDistanceTraveled)
                             {
                                 distanceTraveledTie++;
                             }
                         }
-                        if (distanceTraveledTie == 0) //if tiebreaker found from highest distance traveled
+                        if (distanceTraveledTie == 0) //if tiebreaker found from highestDistanceTraveled distance traveled
                         {
                             for (int i = 0; i < winners.size(); i++)
                             {
-                                if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                                if (arr[winners.at(i)].getDistanceTraveled() == highestDistanceTraveled)
                                 {
                                     arr[winners.at(i)].increaseRacesWon();
                                     break;
@@ -227,15 +227,20 @@ int main()
                         {
                             for (int i = 0; i < winners.size(); i++)
                             {
-                                if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                                if (arr[winners.at(i)].getDistanceTraveled() == highestDistanceTraveled)
                                 {
                                     tiebreaker.push_back(winners.at(i));
                                 }
                             }
-                            cout << "Enter seed value to determine winner by random:";
-                            cin >> seed;
+                            while (cout << "Enter seed value to determine winner by random:"
+                                 && !(cin >> seed)) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                cout << "Invalid input for seed value." << endl;
+                            }
                             srand(seed);
                             int randomNum = rand() % tiebreaker.size();
+                            cout << randomNum << endl;
                             arr[tiebreaker.at(randomNum)].increaseRacesWon();
                             distanceTraveledTie = 0;
                         }
@@ -248,7 +253,7 @@ int main()
                         }
                         cout << endl;
                         winner = true;
-                        highest = 0;
+                        highestDistanceTraveled = 0;
                         tiebreaker.clear();
                         winners.clear();
                     }
