@@ -2,14 +2,14 @@
 The Horse class should have the following member variables:
 
 private name: A string holding the horses name.
-private rider: A string holding the rider‚Äôs name.
+private rider: A string holding the riderís name.
 private maxRunningDistPerSecond: An int that holds the maximum distance the horse could run in one second.
 private distanceTraveled: How far the horse has gone already.
 private racesWon: An int that determines how much races this horse and rider have won
 
 In addition, the class should have the following constructors and member functions:
 
-Constructor: This constructor should accept the horse‚Äôs name and rider as arguments.
+Constructor: This constructor should accept the horseís name and rider as arguments.
 It should initialize each horse to a random maxRunningDistPerSecond(1-100). DistanceTraveled should be set to 0.
 
 Accessors and mutators: Appropriate accessor and mutator functions should be used as required by the following methods:
@@ -21,7 +21,7 @@ sendToGate: Reset the horse to the start of a race by setting distanceTraveled t
 
 displayHorse(int goalLength): This method should attempt to draw where the horse is along its race.
 Should try to graphically display in ascii how far the horse has gone on its way to goalLength.
-This should be scaled so it doesn‚Äôt overrun the screen.
+This should be scaled so it doesnít overrun the screen.
 
 Some examples:
 
@@ -29,8 +29,8 @@ Some examples:
 |--------------------> | Secretariat, ridden by George
 |------------> | Calamity Jane, ridden by Mary
 
-So if a horse has ‚ÄúdistanceTraveled‚Äù of 50 and the goalLength passed is 100, then the > for the horse
-should be halfway towards the ‚Äúgoal‚Äù. If it is called where the distanceTraveled is greater than the
+So if a horse has ìdistanceTraveledî of 50 and the goalLength passed is 100, then the > for the horse
+should be halfway towards the ìgoalî. If it is called where the distanceTraveled is greater than the
 goalLength (indicating it has finished), this output would be:
 
 |--------------------------------|>John indicating the horse has finished the race.
@@ -42,7 +42,7 @@ Since horses can travel in any time interval a max of 100, a good distance of 10
 
 In a loop, start the race. In this loop, for each interval of the loop, execute runASecond for each horse.
 Then output all the horses toString to show the user the current race status. Then prompt the user if they want to
-continue the race. Keep doing this until one of the horses has ‚Äúwon‚Äù the race. If there is a tie, break the tie by
+continue the race. Keep doing this until one of the horses has ìwonî the race. If there is a tie, break the tie by
 distanceTraveled. If there is a tie in distanceTraveled, randomly pick a winner.
 
 Your program should allow multiple races with the same horses. At the end of each race, display the winner and
@@ -98,12 +98,16 @@ negative answer and re-prompt until an appropriate result is given. Only accept 
 again re-prompting if necessary.*/
 
 #include "Horse.h"
+#include <vector>
 
 int main()
 {
-    int numOfHorses = 0, raceDistance = 0, numOfRaces = 0, numOfWinners = 0;
+    unsigned seed;
+    int numOfHorses = 0, raceDistance = 0, numOfRaces = 0,
+        highest = 0, distanceTraveledTie = 0;
     string horseName, riderName;
-    char choice, anotherRace,runAgain;
+    char choice, anotherRace, runAgain;
+    vector<int> winners, tiebreaker;
     bool winner = false;
 
     do
@@ -177,62 +181,76 @@ int main()
                     {
                         if (arr[i].getDistanceTraveled() >= raceDistance)
                         {
-                            arr[i].setWonToTrue();
-                            numOfWinners++;
+                            winners.push_back(i); //store index of horse object in winners vector
                         }
                     }
-                    if (numOfWinners > 1) //tiebreaker
+                    if (winners.size() == 1) //if there is only one winner of race
                     {
-                        int highest = arr[0].getDistanceTraveled();
-                        for (int i = 1; i < numOfHorses; i++)
-                        {
-                            if (arr[i].getWon())
-                            {
-                                if (arr[i].getDistanceTraveled() > highest)
-                                {
-                                    highest = arr[i].getDistanceTraveled();
-                                }
-                                arr[i].setWontoFalse();
-                            }
-                        }
-                        for (int i = 0; i < numOfHorses; i++) //if tiebreaker is determined by highest distance traveled
-                        {
-                            if (arr[i].getDistanceTraveled() == highest)
-                            {
-                                arr[i].increaseRacesWon();
-                                break;
-                            }
-                        }
+                        arr[winners.at(0)].increaseRacesWon();
                         numOfRaces++;
                         for (int i = 0; i < numOfHorses; i++)
                         {
                             cout << arr[i].getName() << " has won " <<
                                 arr[i].getRacesWon() << "/" << numOfRaces
-                                << " races." << endl;
-                        }
-                        winner = true;
-                        numOfWinners = 0;
-                    }
-                    else if (numOfWinners == 1) //if no tiebreaker just one winner
-                    {
-                        for (int i = 0; i < numOfHorses; i++)
-                        {
-                            if (arr[i].getWon())
-                            {
-                                arr[i].increaseRacesWon();
-                                arr[i].setWontoFalse();
-                            }
-                        }
-                        numOfRaces++;
-                        for (int i = 0; i < numOfHorses; i++)
-                        {
-                            cout << arr[i].getName() << " has won " <<
-                                arr[i].getRacesWon() << "/" << numOfRaces
-                                << " races." << endl;
+                                << " races. ";
                         }
                         cout << endl;
                         winner = true;
-                        numOfWinners = 0;
+                        winners.clear();
+                    }
+                    else if (winners.size() > 1) //more than one winner and tiebreaker needed
+                    {
+                        highest = arr[winners.at(0)].getDistanceTraveled();
+                        for (int i = 1; i < winners.size(); i++)
+                        {
+                            if (arr[winners.at(i)].getDistanceTraveled() > highest)
+                            {
+                                highest = arr[winners.at(i)].getDistanceTraveled();
+                            }
+                            else if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                            {
+                                distanceTraveledTie++;
+                            }
+                        }
+                        if (distanceTraveledTie == 0) //if tiebreaker found from highest distance traveled
+                        {
+                            for (int i = 0; i < winners.size(); i++)
+                            {
+                                if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                                {
+                                    arr[winners.at(i)].increaseRacesWon();
+                                    break;
+                                }
+                            }
+                        }
+                        else if (distanceTraveledTie > 0) //if tiebreaker has to be found from a random pick
+                        {
+                            for (int i = 0; i < winners.size(); i++)
+                            {
+                                if (arr[winners.at(i)].getDistanceTraveled() == highest)
+                                {
+                                    tiebreaker.push_back(winners.at(i));
+                                }
+                            }
+                            cout << "Enter seed value to determine winner by random:";
+                            cin >> seed;
+                            srand(seed);
+                            int randomNum = rand() % tiebreaker.size();
+                            arr[tiebreaker.at(randomNum)].increaseRacesWon();
+                            distanceTraveledTie = 0;
+                        }
+                        numOfRaces++;
+                        for (int i = 0; i < numOfHorses; i++)
+                        {
+                            cout << arr[i].getName() << " has won " <<
+                                arr[i].getRacesWon() << "/" << numOfRaces
+                                << " races. ";
+                        }
+                        cout << endl;
+                        winner = true;
+                        highest = 0;
+                        tiebreaker.clear();
+                        winners.clear();
                     }
                 } while (!winner);
                 winner = false;

@@ -15,7 +15,6 @@ private:
 	int maxRunningDistPerSecond, distanceTraveled,
 		racesWon;
 	unsigned seed;
-	bool won = false;
 
 public:
 	Horse();
@@ -47,18 +46,6 @@ public:
 	int getDistanceTraveled()
 	{
 		return distanceTraveled;
-	}
-	void setWonToTrue()
-	{
-		won = true;
-	}
-	void setWontoFalse()
-	{
-		won = false;
-	}
-	bool getWon()
-	{
-		return won;
 	}
 	void runASecond();
 	void sendToGate();
