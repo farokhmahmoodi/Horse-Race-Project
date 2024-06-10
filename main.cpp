@@ -1,4 +1,4 @@
-/*In this assignment, you will be performing a horse racing simulation. To start with, you will write a Horse class.
+/*This program is a horse racing simulation. To start with, write a Horse class.
 The Horse class should have the following member variables:
 
 private name: A string holding the horses name.
