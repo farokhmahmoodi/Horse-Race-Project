@@ -1,4 +1,4 @@
-In this assignment, you will be performing a horse racing simulation. To start with, you will write a Horse class. 
+This program is a horse racing simulation. To start with, write a Horse class. 
 The Horse class should have the following member variables:
 
 private name: A string holding the horses name.
@@ -103,6 +103,3 @@ Error conditions: You must check for any invalid entries.
 For example, when asking for the number of horses, 
 do not accept a negative answer and re-prompt until an appropriate result is given.
 Only accept race distances of 100 or greater, again re-prompting if necessary.
-
-Note: Make sure to follow proper programming standards. This should be a 
-good time to review the supplement, as we are now talking about classes and member functions.
